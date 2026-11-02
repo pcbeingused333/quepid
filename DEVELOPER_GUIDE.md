@@ -156,7 +156,7 @@ This approach lets you run Quepid directly on your machine without Docker. It pr
 
 1. **Ruby**: Check `.ruby-version` for the current version of Ruby.  We track the latest releases.  We recommend using a version manager like [rbenv](https://github.com/rbenv/rbenv) or [RVM](https://rvm.io/).
 
-2. **Node.js**: Install Node.js 24.x (`>=24 <25`), as required by `package.json`.
+2. **Node.js**: Install Node.js 26.x (see `.nvmrc`), as required by `package.json` (`>=26 <27`).
 
 3. **Yarn**: Install Yarn package manager.
 
@@ -1021,7 +1021,9 @@ case workspace's scores and search results cannot: live search runs browser → 
 scoring runs client-side, so the server never sees the documents and has nothing to render from.
 Those re-render from a client-side store that Stimulus controllers subscribe to, writing the DOM
 directly. Reach for a Turbo Stream only when Rails is the source of truth for what changed; on this
-page that is the exception, not the default.
+page that is the exception, not the default. A rating must update scores immediately: the `scoring`
+store's `rating-changed` event triggers a client-side `scoreAll()` (`utils/live_query_events.js`),
+not a server round trip.
 
 ### Stimulus conventions
 
