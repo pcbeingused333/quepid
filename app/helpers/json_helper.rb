@@ -39,6 +39,7 @@ module JsonHelper
   #
   def format_for_display value
     return format_json(value) unless value.is_a?(String)
+    return value unless value.lstrip.start_with?('{', '[')
 
     parsed = JSON.parse(value)
     parsed.is_a?(Hash) || parsed.is_a?(Array) ? JSON.pretty_generate(parsed) : value
