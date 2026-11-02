@@ -31,13 +31,13 @@ module JsonHelper
   # not parse as a JSON object or array is returned as-is.
   #
   # Examples:
-  #   pretty_print_if_json('{"api-key":"abc"}')
+  #   format_for_display('{"api-key":"abc"}')
   #   # => "{\n  \"api-key\": \"abc\"\n}"
   #
-  #   pretty_print_if_json('q=star wars')
+  #   format_for_display('q=star wars')
   #   # => 'q=star wars'
   #
-  def pretty_print_if_json value
+  def format_for_display value
     return format_json(value) unless value.is_a?(String)
 
     parsed = JSON.parse(value)
